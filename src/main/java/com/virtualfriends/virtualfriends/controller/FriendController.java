@@ -16,13 +16,13 @@ import java.util.Optional;
 
 
 @RestController
-@RequestMapping(value="/")
 public class FriendController {
 
     @Autowired
     FriendRepository repo;
 
     @ApiIgnore
+    @RequestMapping(value="/")
     public void redirect(HttpServletResponse response) throws IOException {
         response.sendRedirect("/swagger-ui.html");
     }
@@ -67,7 +67,6 @@ public class FriendController {
     @GetMapping("/friends/{id}")
     public ResponseEntity<Friend> getFriendById(@PathVariable String id) {
         Optional<Friend> friend = repo.findById(id);
-        System.out.println(friend);
 
         if (friend.isPresent()) {
             return new ResponseEntity<>(friend.get(), HttpStatus.OK);
